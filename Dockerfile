@@ -10,6 +10,4 @@ RUN pip3 install -r requirements.txt
 
 RUN chmod 755 .
 
-ENV PYTHONPATH=/app/src:$PYTHONPATH
-
 COPY . /app
