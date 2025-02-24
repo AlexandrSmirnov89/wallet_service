@@ -2,7 +2,6 @@ from decimal import Decimal
 
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
-from sqlalchemy.exc import NoResultFound
 from src.models.wallet import Wallet
 from sqlalchemy.orm import Session
 

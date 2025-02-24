@@ -1,9 +1,8 @@
 from celery import Celery
 
-# Создайте экземпляр Celery и настройте его для использования Redis
 celery_app = Celery(
-    'wallet_service_v2',  # Имя вашего приложения
-    broker='redis://localhost:6379/0',  # Указываем брокер сообщений (Redis)
+    'wallet_service_v2',
+    broker='redis://localhost:6379/0',
     backend='redis://localhost:6379/0',
     include=["src.api.v1.tasks.wallet"]
 )

@@ -1,9 +1,7 @@
-import asyncio
-
 import redis.asyncio as redis
 from src.core.config import settings
 
-redis_client = None  # Глобальная переменная для кеша
+redis_client = None
 
 async def get_redis():
     global redis_client
