@@ -2,6 +2,10 @@ import pytest
 import uuid
 from unittest.mock import patch
 from fastapi.testclient import TestClient
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
 from src.main import app
 
 
