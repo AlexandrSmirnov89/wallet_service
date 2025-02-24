@@ -27,7 +27,7 @@ jobs:
 
       - name: Run tests
         run: |
-          export PYTHONPATH=$(pwd)/src
+          export PYTHONPATH=$(pwd)
           pytest -v tests/test_wallet.py
 
   build:
