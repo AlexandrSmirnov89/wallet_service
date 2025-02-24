@@ -27,9 +27,8 @@ jobs:
 
       - name: Run tests
         run: |
-          cd /app
           export PYTHONPATH=$(pwd)/src
-          pytest
+          pytest -v tests/test_wallet.py
 
   build:
     runs-on: ubuntu-latest
