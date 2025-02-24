@@ -43,6 +43,7 @@ def get_wallet_balance_task(wallet_id: str):
             return {"error": "Wallet not found"}
 
         import asyncio
+        asyncio.sleep(1)
         asyncio.run(set_cache(wallet_id, float(wallet.balance)))
 
         return {"wallet_id": wallet.id, "balance": str(wallet.balance)}
