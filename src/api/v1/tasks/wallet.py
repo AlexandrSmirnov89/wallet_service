@@ -5,15 +5,9 @@ from src.core.celery_config import celery_app
 from src.repositories.wallet import WalletRepository
 from src.core.db import get_sync_db
 from src.schemas.wallet import OperationType
-from celery import shared_task
 
 
 @celery_app.task
-def task_task():
-    return "Задача выполнена"
-
-
-@shared_task
 def process_wallet_operation(wallet_id: str, operation_type: str, amount: float):
     db = get_sync_db()
     try:
@@ -40,7 +34,7 @@ def process_wallet_operation(wallet_id: str, operation_type: str, amount: float)
         db.close()
 
 
-@shared_task
+@celery_app.task
 def get_wallet_balance_task(wallet_id: str):
     db = get_sync_db()
     try:

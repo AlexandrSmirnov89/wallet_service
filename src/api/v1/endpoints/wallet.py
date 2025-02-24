@@ -5,9 +5,7 @@ from src.cache.cache_redis import get_cache
 from src.core.db import get_db
 from src.schemas.wallet import WalletOperation, WalletResponse, WalletCreate
 from src.services.wallet import WalletService
-from src.api.v1.tasks import process_wallet_operation, get_wallet_balance_task, task_task
-
-task_task.delay()
+from src.api.v1.tasks import process_wallet_operation, get_wallet_balance_task
 
 router = APIRouter()
 
