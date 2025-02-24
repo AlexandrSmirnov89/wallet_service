@@ -28,3 +28,5 @@ async def test_get_wallet_balance(mock_celery):
     response = client.get(f"/api/v1/wallets/{wallet_id}")
     assert response.status_code == 200
     mock_celery.assert_called_once_with(wallet_id)
+
+print('kyky')
