@@ -27,6 +27,7 @@ jobs:
 
       - name: Run tests
         run: |
+          cd /app
           export PYTHONPATH=$(pwd)/src
           pytest
 
