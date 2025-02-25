@@ -40,7 +40,7 @@ def get_wallet_balance_task(wallet_id: str):
     try:
         wallet = WalletRepository.get_wallet_sync(wallet_id, db)
         if not wallet:
-            return {"error": "Wallet not found"}
+            return {"error": "Wallet not found!"}
 
         import asyncio
         asyncio.run(set_cache(wallet_id, float(wallet.balance)))
