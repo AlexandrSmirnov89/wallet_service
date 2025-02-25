@@ -28,8 +28,8 @@ services:
       db:
         condition: service_healthy
     volumes:
-      - ./migration:/liquibase
-    working_dir: /liquibase
+      - ./migration:/migration
+    working_dir: /migration
     command: tail -f /dev/null
 #    command: >
 #      --defaults-file=/migration/liquibase.properties
