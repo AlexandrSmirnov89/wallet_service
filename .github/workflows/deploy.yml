@@ -55,6 +55,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     needs: test
+    if: |
+      contains(github.event.head_commit.message, '[build]') || 
+      github.event_name == 'pull_request' || 
+      github.event_name == 'push' &&
+      (contains(github.event.head_commit.modified, 'Dockerfile') || 
+       contains(github.event.head_commit.modified, 'docker-compose.yml') ||
+       contains(github.event.head_commit.modified, '.dockerignore'))
 
     steps:
       - name: Checkout code
