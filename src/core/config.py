@@ -7,8 +7,8 @@ env = Env()
 env.read_env()
 
 class Settings(BaseSettings):
-    DATABASE_URL: str = env['DATABASE_URL']
-    REDIS_URL: str = env['REDIS_URL']
+    DATABASE_URL: str = env('DATABASE_URL')
+    REDIS_URL: str = env('REDIS_URL')
     model_config = ConfigDict(env_file=".env")
 
 
