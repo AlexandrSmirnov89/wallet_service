@@ -1,3 +1,5 @@
+from http.client import HTTPException
+
 from sqlalchemy.ext.asyncio import AsyncSession
 from src.repositories.wallet import WalletRepository
 from src.schemas.wallet import WalletCreate, WalletOperation, OperationType
@@ -6,6 +8,11 @@ from src.schemas.wallet import WalletCreate, WalletOperation, OperationType
 class WalletService:
     @staticmethod
     async def create_wallet(wallet_data: WalletCreate, db: AsyncSession):
+        if wallet_data.balance < 0:
+            raise HTTPException(
+                status_code=400,
+                detail="Balance cannot be negative"
+            )
         return await WalletRepository.create_wallet(db, balance=wallet_data.balance)
 
     @staticmethod

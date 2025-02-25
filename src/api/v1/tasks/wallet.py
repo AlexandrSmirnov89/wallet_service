@@ -1,6 +1,6 @@
 from decimal import Decimal
 
-from src.cache.cache_redis import set_cache
+from src.cache.cache_redis import set_sync_cache
 from src.core.celery_config import celery_app
 from src.repositories.wallet import WalletRepository
 from src.core.db import get_sync_db
@@ -24,8 +24,7 @@ def process_wallet_operation(wallet_id: str, operation_type: str, amount: float)
             else -Decimal(str(amount)), db
         )
 
-        import asyncio
-        asyncio.run(set_cache(wallet_id, updated_wallet.balance))
+        set_sync_cache(wallet_id, updated_wallet.balance)
 
         return {"wallet_id": wallet.id, "balance": str(updated_wallet.balance)}
     except Exception as e:
@@ -42,10 +41,9 @@ def get_wallet_balance_task(wallet_id: str):
         if not wallet:
             return {"error": "Wallet not found!"}
 
-        import asyncio
-        asyncio.run(set_cache(wallet_id, float(wallet.balance)))
+        set_sync_cache(wallet_id, float(wallet.balance))
 
-        return {"wallet_id": wallet.id, "balance": str(wallet.balance)}
+        return {"wallet_id": wallet.id, "balance": wallet.balance}
     except Exception as e:
         return {"error": str(e)}
     finally:

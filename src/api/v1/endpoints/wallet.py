@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.cache.cache_redis import get_cache
+from src.cache.cache_redis import get_async_cache
 from src.core.db import get_db
 from src.schemas.wallet import WalletOperation, WalletResponse, WalletCreate
 from src.services.wallet import WalletService
@@ -16,12 +16,15 @@ async def create_wallet(wallet_data: WalletCreate, db: AsyncSession = Depends(ge
 
 @router.post("/wallets/{wallet_id}/operation", status_code=202)
 async def wallet_operation(wallet_id: str, operation: WalletOperation):
-    process_wallet_operation.delay(wallet_id, operation.operationType.value, float(operation.amount))
-    return {"message": "Operation queued for processing"}
+    task = process_wallet_operation.delay(wallet_id, operation.operationType.value, float(operation.amount))
+    result = task.get(timeout=5)
+    if "error" in result:
+        raise HTTPException(status_code=404, detail=result["error"])
+    return result
 
 @router.get("/wallets/{wallet_id}")
 async def get_wallet_balance(wallet_id: str):
-    cached_balance = await get_cache(wallet_id)
+    cached_balance = await get_async_cache(wallet_id)
     if cached_balance is not None:
         return {"wallet_id": wallet_id, "balance": cached_balance}
 
