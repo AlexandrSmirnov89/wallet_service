@@ -10,6 +10,11 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U wallet_admin -d wallet_service"]
+      interval: 5s
+      retries: 5
+      timeout: 3s
 
   redis:
     image: redis:latest
@@ -20,7 +25,8 @@ services:
   liquibase:
     image: liquibase/liquibase:latest
     depends_on:
-      - db
+      db:
+        condition: service_healthy  # ✅ Ждем, пока БД будет готова
     volumes:
       - ./migration:/migration
     command: >
@@ -30,25 +36,34 @@ services:
   app:
     build: .
     depends_on:
-      - db
-      - liquibase
-      - redis
+      db:
+        condition: service_healthy  # ✅ Ждем БД
+      liquibase:
+        condition: service_completed_successfully  # ✅ Ждем миграции
+      redis:
+        condition: service_started
     environment:
       DATABASE_URL: postgresql+asyncpg://wallet_admin:qwerty@db:5432/wallet_service
       REDIS_URL: redis://redis:6379/0
     ports:
       - "8080:8080"
-    command: uvicorn src.main:app --host 0.0.0.0 --port 8080 --workers 2
+    command: >
+      sh -c "sleep 5 && uvicorn src.main:app --host 0.0.0.0 --port 8080 --workers 2"
 
   celery:
     build: .
     depends_on:
-      - db
-      - redis
+      db:
+        condition: service_healthy
+      liquibase:
+        condition: service_completed_successfully
+      redis:
+        condition: service_started
     environment:
       DATABASE_URL: postgresql+asyncpg://wallet_admin:qwerty@db:5432/wallet_service
       REDIS_URL: redis://redis:6379/0
-    command: celery -A src.core.celery_config.celery_app worker --loglevel=debug --concurrency=2
+    command: >
+      sh -c "sleep 10 && celery -A src.core.celery_config.celery_app worker --loglevel=debug --concurrency=2"
 
 volumes:
   postgres_data:
