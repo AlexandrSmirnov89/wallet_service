@@ -30,7 +30,7 @@ services:
     volumes:
       - ./migration:/migration
     environment:
-      LIQUIBASE_SEARCH_PATH: /liquibase
+      LIQUIBASE_SEARCH_PATH: /migration/migration
     working_dir: /migration
     command: liquibase --defaults-file=/migration/liquibase.properties --logLevel=debug update
 
