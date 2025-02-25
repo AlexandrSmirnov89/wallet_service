@@ -48,7 +48,7 @@ jobs:
         env:
           DATABASE_URL: postgresql+asyncpg://wallet_admin:qwerty@localhost:5432/wallet_service
           REDIS_URL: redis://localhost:6379/0
-        run:
+        run: |
           export PYTHONPATH=$(pwd)
           pytest -v tests/test_wallet.py
 
