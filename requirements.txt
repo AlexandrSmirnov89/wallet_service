@@ -23,6 +23,7 @@ distlib==0.3.6
 dnspython==2.7.0
 dulwich==0.21.3
 email_validator==2.2.0
+environs==14.1.1
 fastapi==0.115.8
 fastapi-cli==0.0.7
 filelock==3.9.0
@@ -105,4 +106,3 @@ wcwidth==0.2.13
 webencodings==0.5.1
 websockets==15.0
 zipp==3.15.0
-environs==14.1.1

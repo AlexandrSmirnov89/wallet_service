@@ -44,8 +44,11 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      - name: Run tests
-        run: |
+      - name: Set environment variables
+        env:
+          DATABASE_URL: postgresql+asyncpg://wallet_admin:qwerty@localhost:5432/wallet_service
+          REDIS_URL: redis://localhost:6379/0
+        run:
           export PYTHONPATH=$(pwd)
           pytest -v tests/test_wallet.py
 
