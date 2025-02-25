@@ -28,9 +28,9 @@ services:
       db:
         condition: service_healthy
     volumes:
-      - ./migration:/liquibase/changelog
+      - ./migration:/migration
     command: >
-      --defaultsFile=/liquibase/changelog/liquibase.properties
+      --defaultsFile=/migration/liquibase.properties
       update
 
   app:
