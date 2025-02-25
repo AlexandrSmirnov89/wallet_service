@@ -30,17 +30,17 @@ services:
     volumes:
       - ./migration:/migration
     working_dir: /migration
-    command: >
-      --defaults-file=/migration/liquibase.properties
-      update
+#    command: >
+#      --defaults-file=/migration/liquibase.properties
+#      update
 
   app:
     build: .
     depends_on:
       db:
         condition: service_healthy
-      liquibase:
-        condition: service_completed_successfully
+#      liquibase:
+#        condition: service_completed_successfully
       redis:
         condition: service_started
     environment:
@@ -56,8 +56,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
-      liquibase:
-        condition: service_completed_successfully
+#      liquibase:
+#        condition: service_completed_successfully
       redis:
         condition: service_started
     environment:
