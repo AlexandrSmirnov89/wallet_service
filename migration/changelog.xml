@@ -5,15 +5,15 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
 
-    <changeSet id="1" author="dev" runAlways="true">
-        <createTable tableName="wallets" ifNotExists="true">
-            <column name="id" type="UUID">
-                <constraints primaryKey="true"/>
-            </column>
-            <column name="balance" type="NUMERIC(10,2)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
+    <changeSet id="1" author="dev">
+        <sql>
+            <![CDATA[
+            CREATE TABLE IF NOT EXISTS wallets (
+                id UUID PRIMARY KEY,
+                balance NUMERIC(10, 2) NOT NULL
+            );
+            ]]>
+        </sql>
     </changeSet>
 
 </databaseChangeLog>
