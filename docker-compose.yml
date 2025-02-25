@@ -32,7 +32,7 @@ services:
     environment:
       LIQUIBASE_SEARCH_PATH: /liquibase
     working_dir: /liquibase
-    command: liquibase --defaults-file=/liquibase/liquibase.properties --logLevel=debug update
+    command: liquibase --defaults-file=/liquibase/liquibase.properties --logLevel=debug --changelog-file=/migration/changelog.xml update
 
   app:
     build: .
