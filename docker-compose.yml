@@ -29,6 +29,8 @@ services:
         condition: service_healthy
     volumes:
       - ./migration:/migration
+    environment:
+      LIQUIBASE_SEARCH_PATH: /migration
     working_dir: /migration
     command: liquibase --defaults-file=/migration/liquibase.properties --logLevel=debug update
 
