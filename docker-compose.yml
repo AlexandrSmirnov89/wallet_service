@@ -28,10 +28,10 @@ services:
       db:
         condition: service_healthy
     volumes:
-      - ./migration/changelog.xml:/migration/changelog.xml
-    command: >
-      --defaultsFile=/migration/liquibase.properties
-      update
+      - ./migration:/migration
+#    command: >
+#      --defaultsFile=/migration/liquibase.properties
+#      update
 
   app:
     build: .
