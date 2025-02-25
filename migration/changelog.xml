@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
 
-    <changeSet id="1" author="dev">
+    <changeSet id="1" author="dev" runOnChange="true">
         <createTable tableName="wallets">
             <column name="id" type="UUID">
                 <constraints primaryKey="true"/>
