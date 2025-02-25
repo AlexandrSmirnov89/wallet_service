@@ -26,7 +26,7 @@ services:
     image: liquibase/liquibase:latest
     depends_on:
       db:
-        condition: service_healthy  # ✅ Ждем, пока БД будет готова
+        condition: service_healthy
     volumes:
       - ./migration:/migration
     command: >
@@ -37,9 +37,9 @@ services:
     build: .
     depends_on:
       db:
-        condition: service_healthy  # ✅ Ждем БД
+        condition: service_healthy
       liquibase:
-        condition: service_completed_successfully  # ✅ Ждем миграции
+        condition: service_completed_successfully
       redis:
         condition: service_started
     environment:
