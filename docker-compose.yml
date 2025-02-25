@@ -30,6 +30,7 @@ services:
     volumes:
       - ./migration:/liquibase
     working_dir: /liquibase
+    command: tail -f /dev/null
 #    command: >
 #      --defaults-file=/migration/liquibase.properties
 #      update
