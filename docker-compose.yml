@@ -32,11 +32,12 @@ services:
     environment:
       LIQUIBASE_SEARCH_PATH: /liquibase
     working_dir: /liquibase
-    command: liquibase --defaults-file=/liquibase/liquibase.properties --logLevel=debug \
-      --url=jdbc:postgresql://db:5432/mydatabase \
-      --username=wallet_admin \
-      --password=qwerty \
-      --changelog-file=/migration/changelog.xml update
+    command: liquibase \
+      --url jdbc:postgresql://db:5432/mydatabase \
+      --username wallet_admin \
+      --password qwerty \
+      --changelog-file /migration/changelog.xml \
+      update
 
   app:
     build: .
