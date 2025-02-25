@@ -28,10 +28,10 @@ services:
       db:
         condition: service_healthy
     volumes:
-      - ./migration:/liquibase
-    working_dir: /liquibase
+      - ./migration:/migration
+    working_dir: /migration
     command: >
-      --defaults-file=/liquibase/liquibase.properties
+      --defaults-file=/migration/liquibase.properties
       update
 
   app:
