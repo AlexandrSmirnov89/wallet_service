@@ -31,8 +31,12 @@ services:
       - ./migration:/migration
     environment:
       LIQUIBASE_SEARCH_PATH: /liquibase
+      LIQUIBASE_COMMAND_URL: jdbc:postgresql://db:5432/wallet_service
+      LIQUIBASE_COMMAND_USERNAME: wallet_admin
+      LIQUIBASE_COMMAND_PASSWORD: qwerty
+      LIQUIBASE_COMMAND_CHANGELOG_FILE: changelog.xml
     working_dir: /liquibase
-    command: liquibase update
+    command: ["update"]
 
   app:
     build: .
